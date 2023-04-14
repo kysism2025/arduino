@@ -18,30 +18,25 @@ volatile unsigned char rx_buf[20];
 void com_chk() {
   rx_end_flag = 0;
   sprintf(d_buf, "%s", rx_buf);
-  Serial.println(d_buf);
-  
-  PORTD = rx_buf[0]; // 그대로 들어옴
-  
-  // (d_buf[0] & 0x0f); // 비트연산처리됨!!
-  // 4 ==> 0x34
-  // 8 ==> 0x38
-  // 0x34 ==> 0011 0100
-  // 0x0f ==> 0000 1111 &연산
-  // ---------------------
-  //          0000 0100   ==> 3번핀에 신호가 들어옴!!
-  
-  // 0x38 ==> 0011 1000
-  // 0x0f ==> 0000 1111 &연산
-  // ---------------------
-  //          0000 1000  ==> 4번핀에 신호가 들어옴!!
-  
+  // Serial.println(d_buf);
+  // Serial.println(d_buf[0]);
 
-   
-  memset(rx_buf, 0, sizeof(char)*20);
+  switch(d_buf[0])
+  {
+    case 'A':
+    case 'a':
+              Serial.println("Song");
+              break;
+    case 'B':
+    case 'b':
+              Serial.println("The End Go to Home");
+              break;
+  }
+  memset(rx_buf, 0, sizeof(char)*20);     
 }
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   DDRD = 0xff;
 
@@ -63,12 +58,12 @@ void loop() {
 
   if(rx_end_flag == 1) com_chk();
 
-  // cnt++;
-  // PORTD = cnt;
-  // sprintf(d_buf, "Counter=%4dEA\n", cnt);
-  // Serial.write(d_buf);
-  _delay_ms(50);
-
+   cnt++;
+   PORTD = cnt;
+   sprintf(d_buf, "Counter=%4dEA\n", cnt);
+   Serial.write(d_buf);
+  
+  _delay_ms(1000);
 }
 
 /* 시리얼 수신 ISR */
@@ -80,6 +75,8 @@ void serialEvent() {
 
   // 실습 8
   buf = Serial.read();
+  //Serial.print(Serial.read());
+  //Serial.print('\n');
 
   if(buf == '\n') {
   //  if(buf == 0x0a) {
@@ -89,7 +86,7 @@ void serialEvent() {
   }else{
       rx_buf[rx_cnt] = buf;
       rx_cnt++;
-  }
+  } 
 }
 
 
