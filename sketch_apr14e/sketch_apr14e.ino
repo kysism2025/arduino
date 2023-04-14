@@ -60,9 +60,12 @@ void loop() {
 
    cnt++;
    PORTD = cnt;
+
    sprintf(d_buf, "Counter=%4dEA\n", cnt);
+   Serial.print("[39m");
+   Serial.print("\39m");
+   Serial.print("\033[23");
    Serial.write(d_buf);
-  
   _delay_ms(1000);
 }
 
