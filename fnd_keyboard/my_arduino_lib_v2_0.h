@@ -19,11 +19,11 @@
 
 #define bit_set(ADDRESS, BIT) (ADDRESS |= (1<<BIT)) // bit hi 
 #define bit_clr(ADDRESS, BIT) (ADDRESS &= ~(1<<BIT)) // bit low
-#define bit_chk(ADDRESS, BIT) (ADDRESS & (1<<BIT))  // bit chak
-#define bit_tg(PORT, BIT) (PORT ^= (1<<BIT))  //bit 토글
+#define bit_chk(ADDRESS, BIT) (ADDRESS & (1<<BIT))  // bit chak : MCU Method bit check
+#define bit_tg(PORT, BIT) (PORT ^= (1<<BIT))  //bit �
 
 #define d_out(pin, value) digitalWrite(pin, value)
-#define d_in(pin) digitalRead(pin)
+#define d_in(pin) digitalRead(pin) // 
 
 
 void byte_out(unsigned char data)

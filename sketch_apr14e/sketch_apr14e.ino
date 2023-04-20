@@ -1,3 +1,5 @@
+#include <LiquidCrystal.h>
+
 // System Lib
 #include <stdio.h>
 #include <string.h>

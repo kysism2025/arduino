@@ -18,33 +18,33 @@ const unsigned char fnd_font[] =
 };
 
 // fnd maseg display
-#define O   0x0d   //o display
-#define F   0x0f    // F display
-#define H   0x0a    // H   "
+#define H   0x0a    // H   "            ==> index : 10
 #define L   0x0b    // L   "
 #define E   0x0c    // E   "
+#define O   0x0d    //o display
 #define P   0x0e    // P   "
+#define F   0x0f    // F display        ==> index : 15
 #define C   0x10    // C   "
 #define D   0x11    // d   "
 #define A   0x12    // A   "
 #define U   0x13    // u   "
-#define T   0x14    // t   "
+#define T   0x14    // t   "            ==> index : 20 
 #define R   0x15    // r   "
-#define b   0x16    // b   "
-#define BLK 0x17   // fnd blk display
+#define b   0x16    // b   "            
+#define BLK 0x17    // fnd blk display  ==> index : 23 
 
 #define X100000  8
-#define X10000  9
+#define X10000   9
 
-#define X1000  10
-#define X100  11
-#define X10  12
-#define X1  13
+#define X1000    10
+#define X100     11
+#define X10      12
+#define X1       13
 
 extern char tg_flag = 0;
 char scan = 0; // int8_t
 
-
+// fnd : Cathod Type Standard ( Annod Type : need to change 0,1 )
 
 fnd_time(char min_, char sec_)
 {
@@ -63,7 +63,7 @@ fnd_time(char min_, char sec_)
     case 2:
              // x100 display
              d_out(X1000, _OFF);
-             byte_out(fnd_font[min_%10] | 0x80); // dp on                                       
+             byte_out(fnd_font[min_%10] | 0x80); // dp on 
              d_out(X100, _ON);
        break;
     
@@ -79,6 +79,7 @@ fnd_time(char min_, char sec_)
              d_out(X10, _OFF);
              (tg_flag == 1) ? byte_out(fnd_font[sec_%10] | 0x80) : byte_out(fnd_font[sec_%10] & 0x7f); 
              d_out(X1, _ON);
+             
        break;
   } 
 
@@ -111,7 +112,7 @@ void fnd_dis_4(unsigned int dis)
              // x10 display
              d_out(X100, _OFF);
              if(tg_flag == 0) byte_out(fnd_font[dis%100/10]);
-             else byte_out(fnd_font[BLK]);
+             else byte_out(fnd_font[BLK]);   // fnd_font[BLK] ==> 0x00
              d_out(X10, _ON);
        break;
        
