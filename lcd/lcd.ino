@@ -4,6 +4,11 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "my_arduino_lib_v2_0.h"
+
+#define bz 2
+
+
 LiquidCrystal_I2C lcd(0x27, 16, 2); // Chip의 Address 아누이노 사이트 참조
 
 int cnt = 0;
@@ -17,6 +22,9 @@ void setup() {
   lcd.init();
   lcd.clear();
   lcd.backlight();  
+
+  pinMode(2, OUTPUT);
+  d_out(bz, 0);
 
   // lcd.setCursor(0, 1);
   // lcd.print("Up Cnt = ");
@@ -35,10 +43,10 @@ void one_char_clr(char x, char y) {
   lcd.print(' ');
 }
 
-// void xy_print(char x, char y, char* buf) {
-//     lcd.setCursor(x, y);
-//     lcd.printstr(buf);
-// }
+void xy_print(char x, char y, char* buf) {
+    lcd.setCursor(x, y);
+    lcd.printstr(buf);
+}
 
 // void xy_print(char x, char y, String buf) {
 //     lcd.setCursor(x, y);
